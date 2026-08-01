@@ -98,8 +98,28 @@ col1,col2,col3=st.columns(3)
 
 with col1:
 
-    if st.button("🚀 Analyze Book",use_container_width=True):
-        st.info("AI analysis will be added in the next step.")
+    if st.button("🚀 Analyze Book", use_container_width=True):
+
+        if raw_text.strip() == "":
+            st.warning("Please paste your book content first.")
+
+        else:
+
+            try:
+
+                with st.spinner("📚 AI is analyzing your manuscript..."):
+
+                    result = analyze_book(raw_text)
+
+                st.success("✅ Book Analysis Completed!")
+
+                st.subheader("📖 AI Book Structure")
+
+                st.json(result)
+
+            except Exception as e:
+
+                st.error(f"❌ Error: {e}")
 
 with col2:
 
