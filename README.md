@@ -1,19 +1,24 @@
 # 📚 BookForge AI
 
-BookForge AI transforms a simple idea into a structured book blueprint.
+BookForge AI transforms raw AI-generated text into a professionally formatted, publication-ready book.
 
 ## Features
 
-- Book Idea Input
-- Genre Selection
-- Audience Selection
-- Writing Style
-- Chapter Planning
-- Table of Contents
-- DOCX Export
+- Paste raw AI text
+- Automatic chapter detection
+- Smart heading generation
+- Professional formatting
+- DOCX export
+- PDF export
+- Cover image support
+- AI proofreading
+- Table of contents generation
+- One-click publishing
 
-Built with
+Built with:
 
 - Streamlit
+- Gemini / OpenAI
 - Python
 - python-docx
+- ReportLab
