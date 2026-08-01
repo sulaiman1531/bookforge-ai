@@ -1,2 +1,8 @@
-streamlit
+streamlit>=1.40.0
 python-docx
+reportlab
+Pillow
+openai
+google-generativeai
+python-dotenv
+markdown
