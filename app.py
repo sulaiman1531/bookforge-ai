@@ -1,5 +1,5 @@
 import streamlit as st
-
+from core.ai_engine import analyze_book
 st.set_page_config(
     page_title="BookForge AI",
     page_icon="📚",
