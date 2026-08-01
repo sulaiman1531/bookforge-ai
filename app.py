@@ -1,6 +1,4 @@
 import streamlit as st
-from datetime import datetime
-from docx import Document
 
 st.set_page_config(
     page_title="BookForge AI",
@@ -8,112 +6,133 @@ st.set_page_config(
     layout="wide"
 )
 
+# ------------------------------
+# Sidebar
+# ------------------------------
+
+with st.sidebar:
+    st.title("📚 BookForge AI")
+    st.markdown("---")
+
+    st.success("AI Publishing Engine")
+
+    st.write("Version 1.0")
+
+    st.markdown("---")
+
+    st.write("### Export")
+
+    st.button("📄 DOCX")
+    st.button("📕 PDF")
+
+    st.markdown("---")
+
+    st.write("Status")
+
+    st.progress(0)
+
+# ------------------------------
+
 st.title("📚 BookForge AI")
-st.caption("Turn one idea into a complete book blueprint.")
 
-st.header("Book Information")
+st.caption("Transform Raw AI Text into a Beautiful Book")
 
-idea = st.text_area(
-    "Describe your book idea",
-    placeholder="Example: A detective discovers dreams predict future crimes..."
+st.markdown("---")
+
+left,right=st.columns([2,1])
+
+with left:
+
+    book_title=st.text_input(
+        "Book Title (Optional)"
+    )
+
+    author=st.text_input(
+        "Author (Optional)"
+    )
+
+    raw_text=st.text_area(
+        "Paste Raw AI Text",
+        height=400,
+        placeholder="Paste your ChatGPT or Gemini generated text here..."
+    )
+
+with right:
+
+    cover=st.file_uploader(
+        "Upload Cover Image",
+        type=["png","jpg","jpeg"]
+    )
+
+    language=st.selectbox(
+        "Language",
+        [
+            "English",
+            "Hindi",
+            "Urdu"
+        ]
+    )
+
+    theme=st.selectbox(
+        "Book Theme",
+        [
+            "Classic",
+            "Modern",
+            "Minimal",
+            "Novel",
+            "Academic"
+        ]
+    )
+
+    export=st.selectbox(
+        "Export Format",
+        [
+            "DOCX",
+            "PDF"
+        ]
+    )
+
+st.markdown("---")
+
+col1,col2,col3=st.columns(3)
+
+with col1:
+
+    if st.button("🚀 Analyze Book",use_container_width=True):
+        st.info("AI analysis will be added in the next step.")
+
+with col2:
+
+    if st.button("📖 Generate Book",use_container_width=True):
+        st.info("Book generation will be added in the next step.")
+
+with col3:
+
+    if st.button("📥 Export",use_container_width=True):
+        st.info("Export engine coming soon.")
+
+st.markdown("---")
+
+st.subheader("Preview")
+
+st.info(
+"""
+After clicking **Generate Book**, BookForge AI will automatically:
+
+✅ Detect Book Type
+
+✅ Detect Chapters
+
+✅ Create Table of Contents
+
+✅ Create Headings
+
+✅ Create Subheadings
+
+✅ Format Paragraphs
+
+✅ Insert Cover
+
+✅ Export Professional DOCX/PDF
+"""
 )
-
-genre = st.selectbox(
-    "Genre",
-    [
-        "Fantasy",
-        "Thriller",
-        "Sci-Fi",
-        "Romance",
-        "Mystery",
-        "Horror",
-        "Biography",
-        "Self Help",
-        "Business",
-        "Education"
-    ]
-)
-
-audience = st.selectbox(
-    "Target Audience",
-    [
-        "Children",
-        "Teenagers",
-        "Young Adults",
-        "Adults"
-    ]
-)
-
-chapters = st.slider(
-    "Number of Chapters",
-    5,
-    30,
-    10
-)
-
-pages = st.slider(
-    "Approximate Pages",
-    50,
-    500,
-    150
-)
-
-tone = st.selectbox(
-    "Writing Style",
-    [
-        "Professional",
-        "Friendly",
-        "Dark",
-        "Inspirational",
-        "Humorous"
-    ]
-)
-
-if st.button("🚀 Generate Book Blueprint"):
-
-    title = "Untitled Book"
-
-    if idea:
-        title = idea.split(" ")[0].capitalize() + " Chronicles"
-
-    toc = []
-
-    for i in range(1, chapters + 1):
-        toc.append(f"Chapter {i}")
-
-    st.success("Blueprint Generated!")
-
-    st.subheader("📖 Book Title")
-    st.write(title)
-
-    st.subheader("📋 Table of Contents")
-
-    for chapter in toc:
-        st.write("•", chapter)
-
-    st.subheader("📝 Summary")
-
-    st.write(idea)
-
-    document = Document()
-
-    document.add_heading(title, level=1)
-
-    document.add_heading("Book Summary", level=2)
-    document.add_paragraph(idea)
-
-    document.add_heading("Table of Contents", level=2)
-
-    for chapter in toc:
-        document.add_paragraph(chapter)
-
-    filename = f"{title}.docx"
-
-    document.save(filename)
-
-    with open(filename, "rb") as file:
-        st.download_button(
-            "📥 Download DOCX",
-            file,
-            file_name=filename
-        )
